@@ -15,27 +15,64 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("🎯 Retention Strategy Dashboard")
-st.markdown("""
-This dashboard presents the standardized mapping between major churn
-drivers and the recommended customer retention actions.
+# =====================================================
+# PAGE HEADER
+# =====================================================
+st.title("Retention Strategy Dashboard")
 
-The same strategy mapping is used throughout the application,
-including the Predict Churn page, ensuring full consistency.
+st.markdown("""
+This dashboard connects major churn drivers identified by the
+machine learning model with actionable customer retention strategies.
 """)
 
-# -----------------------------------------------------
-# Convert dictionary to DataFrame
-# -----------------------------------------------------
+# =====================================================
+# STRATEGY DATAFRAME
+# =====================================================
 strategy_df = pd.DataFrame({
-    "Primary Churn Driver": list(strategy_map.keys()),
-    "Recommended Retention Strategy": list(strategy_map.values())
+
+    "Primary Churn Driver":
+        list(strategy_map.keys()),
+
+    "Recommended Retention Strategy":
+        list(strategy_map.values())
 })
 
-# -----------------------------------------------------
-# Display strategy table
-# -----------------------------------------------------
-st.subheader("📋 Churn Driver to Strategy Mapping")
+# =====================================================
+# OVERVIEW METRICS
+# =====================================================
+st.markdown("---")
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+
+    st.metric(
+        "Total Churn Drivers",
+        len(strategy_df)
+    )
+
+with col2:
+
+    st.metric(
+        "Strategy Categories",
+        "Customer Retention"
+    )
+
+with col3:
+
+    st.metric(
+        "Decision Support",
+        "Enabled"
+    )
+
+# =====================================================
+# STRATEGY TABLE
+# =====================================================
+st.markdown("---")
+
+st.subheader(
+    "Churn Driver to Strategy Mapping"
+)
 
 st.dataframe(
     strategy_df,
@@ -43,44 +80,31 @@ st.dataframe(
     hide_index=True
 )
 
-# -----------------------------------------------------
-# Interactive strategy explorer
-# -----------------------------------------------------
+# =====================================================
+# INTERACTIVE EXPLORER
+# =====================================================
 st.markdown("---")
-st.subheader("🔍 Explore a Specific Churn Driver")
+
+st.subheader(
+    "Explore Retention Recommendations"
+)
 
 selected_driver = st.selectbox(
-    "Select a churn driver",
+    "Select a Primary Churn Driver",
     strategy_df["Primary Churn Driver"]
 )
 
-selected_strategy = strategy_map[selected_driver]
+selected_strategy = strategy_map[
+    selected_driver
+]
 
-st.info(f"**Recommended Strategy:** {selected_strategy}")
+# =====================================================
+# DISPLAY SELECTED STRATEGY
+# =====================================================
+st.markdown("### Recommended Business Action")
 
-# -----------------------------------------------------
-# Business Insights
-# -----------------------------------------------------
-st.markdown("---")
-st.subheader("💡 Business Insights")
+st.success(
+    selected_strategy
+)
 
-st.markdown("""
-The retention strategies shown here are derived from the most
-important churn drivers identified using SHAP explainability.
 
-By connecting model insights to actionable interventions,
-the organization can take targeted steps to reduce churn and
-maximize customer lifetime value.
-""")
-
-# -----------------------------------------------------
-# Strategic Summary
-# -----------------------------------------------------
-st.markdown("---")
-st.subheader("📈 Strategic Summary")
-
-st.success("""
-This dashboard serves as a decision-support tool that translates
-machine learning insights into practical business actions for
-customer retention.
-""")

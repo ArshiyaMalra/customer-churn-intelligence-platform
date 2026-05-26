@@ -51,12 +51,12 @@ accuracy = float(metrics.get("Accuracy", metrics.get("accuracy", 0)))
 # =========================
 st.title("📊 Customer Churn Intelligence Platform")
 st.subheader(
-    "Predict Customer Attrition and Generate Actionable Retention Strategies"
+    "Predict Customer Churn and Generate Actionable Retention Strategies"
 )
 
 st.markdown(
     """
-    Welcome to an end-to-end analytics platform designed to identify
+    This is an end-to-end analytics platform designed to identify
     customers at risk of churn, explain the key drivers behind each
     prediction, and recommend targeted retention strategies.
     """
@@ -66,7 +66,7 @@ st.markdown(
 # KPI Cards
 # =========================
 st.markdown("---")
-st.header("📈 Model Snapshot")
+st.header("Model Snapshot")
 
 col1, col2, col3, col4 = st.columns(4)
 
@@ -86,7 +86,7 @@ with col4:
 # Dataset Summary
 # =========================
 st.markdown("---")
-st.header("📂 Dataset Overview")
+st.header("Dataset Overview")
 
 col1, col2, col3 = st.columns(3)
 
@@ -99,34 +99,6 @@ with col2:
 with col3:
     st.metric("Churn Rate", f"{df['Churn'].mean() * 100:.2f}%")
 
-# =========================
-# Project Overview
-# =========================
-st.markdown("---")
-st.header("📌 Project Overview")
-
-st.markdown(
-    """
-    This platform predicts customer churn using a trained
-    Logistic Regression model and provides actionable retention
-    recommendations supported by SHAP-based explainable AI.
-
-    ### Key Capabilities
-    - 🔮 Individual customer churn prediction
-    - 📊 Model performance dashboard
-    - 🔍 SHAP explainability analysis
-    - 🎯 Retention strategy recommendations
-    - 💰 Business impact simulation
-
-    ### Technology Stack
-    - Python
-    - Streamlit
-    - scikit-learn
-    - SHAP
-    - Pandas
-    - Matplotlib
-    """
-)
 
 # =========================
 # Navigation Guide
@@ -139,9 +111,11 @@ st.info(
     Use the sidebar to explore the following dashboards:
 
     • Predict Churn  
+    • Batch Prediction 
     • Model Performance  
     • SHAP Analysis  
     • Retention Strategies  
+    • Survival Analysis 
     • Business Impact Simulator
     """
 )
