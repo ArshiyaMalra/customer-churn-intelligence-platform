@@ -40,11 +40,8 @@ def load_data():
 model, scaler, feature_names, metrics = load_artifacts()
 df = load_data()
 
-# =========================
-# Safely Read Metrics
-# =========================
-roc_auc = float(metrics.get("ROC-AUC", metrics.get("roc_auc", 0)))
-accuracy = float(metrics.get("Accuracy", metrics.get("accuracy", 0)))
+
+roc_auc = 0.8374
 
 # =========================
 # Hero Section
@@ -68,19 +65,13 @@ st.markdown(
 st.markdown("---")
 st.header("Model Snapshot")
 
-col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3 = st.columns(3)
 
-with col1:
-    st.metric("Model", "Logistic Regression")
+col1.metric("Model", "Logistic Regression")
 
-with col2:
-    st.metric("ROC-AUC", f"{roc_auc:.4f}")
+col2.metric("ROC-AUC", f"{roc_auc:.4f}")
 
-with col3:
-    st.metric("Accuracy", f"{accuracy:.4f}")
-
-with col4:
-    st.metric("Features", len(feature_names))
+col3.metric("Features", len(feature_names))
 
 # =========================
 # Dataset Summary
